@@ -1,20 +1,26 @@
 package io.leangen.spqr.samples.demo.controller;
 
 import graphql.GraphQL;
+import graphql.schema.GraphQLSchema;
+import io.leangen.graphql.GraphQLSchemaBuilder;
+import io.leangen.spqr.samples.demo.query.UserQuery;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
 @RestController
-public class HelloWorldRestController {
+public class HelloWorldController {
     
     private GraphQL graphQl;
-    
+
+    public HelloWorldController() {
+        GraphQLSchema schema = new GraphQLSchemaBuilder()
+                .withSingletonQuerySource(new UserQuery())
+                .build();
+        graphQl = new GraphQL(schema);
+    }
+
     @RequestMapping("/")
 	public String welcome() {//Welcome page, non-rest
 		return "Welcome to GraphQL-SPQR Demo app.";
