@@ -1,12 +1,15 @@
 package io.leangen.spqr.samples.demo.query;
 
+import io.leangen.graphql.annotations.GraphQLQuery;
+
 /**
  * Created by loshmee on 25-9-16.
  */
 public class User {
     private String userName;
     private String fullName;
-
+    
+    @GraphQLQuery(name = "userName")
     public String getUserName() {
         return userName;
     }
@@ -14,7 +17,8 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName;
     }
-
+    
+    @GraphQLQuery(name = "fullName")
     public String getFullName() {
         return fullName;
     }
