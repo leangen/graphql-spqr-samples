@@ -3,7 +3,7 @@ package io.leangen.spqr.samples.demo.controller;
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaBuilder;
-import io.leangen.spqr.samples.demo.query.UserQuery;
+import io.leangen.spqr.samples.demo.query.PersonQuery;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +16,7 @@ public class HelloWorldController {
 
     public HelloWorldController() {
         GraphQLSchema schema = new GraphQLSchemaBuilder()
-                .withSingletonQuerySource(new UserQuery())
+                .withSingletonQuerySource(new PersonQuery())
                 .build();
         graphQl = new GraphQL(schema);
     }
