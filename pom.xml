@@ -69,7 +69,10 @@
 						<testCompilerArgument>-parameters</testCompilerArgument>
                         <source>1.8</source>
                         <target>1.8</target>
-                    </configuration>
+						<!--<debug>true</debug>-->
+						<compilerArgument>-parameters</compilerArgument>
+						<testCompilerArgument>-parameters</testCompilerArgument>
+					</configuration>
                 </plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>

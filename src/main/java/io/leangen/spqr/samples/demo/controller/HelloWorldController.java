@@ -1,20 +1,15 @@
 package io.leangen.spqr.samples.demo.controller;
 
-import java.util.Map;
-
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-
 import graphql.GraphQL;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaBuilder;
 import io.leangen.graphql.metadata.strategy.query.BeanResolverExtractor;
 import io.leangen.spqr.samples.demo.query.DomainQuery;
 import io.leangen.spqr.samples.demo.query.PersonQuery;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class HelloWorldController {
@@ -30,8 +25,9 @@ public class HelloWorldController {
         graphQlFromAnnotated = new GraphQL(schemaFromAnnotated);
 
         GraphQLSchema schemaFromDomain = new GraphQLSchemaBuilder()
-		        .withResolverExtractors(new BeanResolverExtractor())
-		        .withSingletonQuerySource(new DomainQuery())
+                .withResolverExtractors(new BeanResolverExtractor())
+                .withSingletonQuerySource(new DomainQuery())
+                .withDefaults()
                 .build();
         graphQLFromDomain = new GraphQL(schemaFromDomain);
     }

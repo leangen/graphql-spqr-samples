@@ -11,12 +11,12 @@ public class DomainQuery {
      * Hello world greeting.
      *
      * Invoke with:
-     * {greeting(Person: {firstName: "John", lastName: "Doe"})}
+     * {normalGreeting(person: {firstName: "John", lastName: "Doe"})}
      *
      * @param person Person to greet
      * @return Informal hello string
      */
-    public String getGreeting(final Person person){
+    public String getNormalGreeting(final Person person){
         return "Hello "+ person.getFirstName()+"!";
     }
 
@@ -25,12 +25,12 @@ public class DomainQuery {
      * Hello world polite greeting.
      *
      * Invoke with:
-     * {greeting(Customer: {firstName: "John", lastName: "Doe", title: MR})}
+     * {politeGreeting(customer: {firstName: "John", lastName: "Doe", title: MR})}
      *
      * @param customer Customer to greet politely
      * @return Informal hello string
      */
-    public String getGreeting(final Customer customer){
+    public String getPoliteGreeting(final Customer customer){
         return "Hello "+ customer.getPersonalTitle()+" "+customer.getLastName()+"!";
     }
 }
