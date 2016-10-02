@@ -17,6 +17,7 @@ public class HelloWorldController {
     public HelloWorldController() {
         GraphQLSchema schema = new GraphQLSchemaBuilder()
                 .withSingletonQuerySource(new PersonQuery())
+                .withDefaults()
                 .build();
         graphQl = new GraphQL(schema);
     }

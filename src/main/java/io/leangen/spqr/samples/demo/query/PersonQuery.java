@@ -29,7 +29,7 @@ public class PersonQuery {
      * Hello world polite greeting.
      *
      * Invoke with:
-     * {greeting(Customer: {firstName: "John", lastName: "Doe", title:"MR"})}
+     * {greeting(Customer: {firstName: "John", lastName: "Doe", title: MR})}
      *
      * @param customer Customer to greet politely
      * @return Informal hello string
