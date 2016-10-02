@@ -65,6 +65,8 @@
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.2</version>
                     <configuration>
+						<compilerArgument>-parameters</compilerArgument>
+						<testCompilerArgument>-parameters</testCompilerArgument>
                         <source>1.8</source>
                         <target>1.8</target>
                     </configuration>
@@ -92,9 +94,10 @@
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<configuration>
-					<war>${basedir}target/spqr-demo.war</war>
+					<war>${basedir}/target/spqr-demo.war</war>
+					<stopPort>9999</stopPort>
 					<httpConnector>
-						<port>8080</port>
+						<port>7777</port>
 					</httpConnector>
                 </configuration>
 			</plugin>
