@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 import graphql.ExecutionResult;
 import graphql.GraphQL;
@@ -68,5 +69,15 @@ public class HelloWorldController {
     @ResponseBody
     public Object indexFromDomain(@RequestBody Map<String, Object> request) {
         return graphQLFromDomain.execute(request.get("query").toString()).getData();
+    }
+
+    @RequestMapping(value = "/graphiql", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView index() {
+        return new ModelAndView("/index-domain");
+    }
+
+    @RequestMapping(value = "/graphiql2", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView index2() {
+        return new ModelAndView("/index-annotation");
     }
 }
