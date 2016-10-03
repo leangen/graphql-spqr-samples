@@ -1,15 +1,16 @@
 package io.leangen.spqr.samples.demo.query;
 
-import io.leangen.spqr.samples.demo.dto.Product;
-import io.leangen.spqr.samples.demo.dto.ProductInStock;
-import io.leangen.spqr.samples.demo.dto.Vendor;
-import org.springframework.stereotype.Component;
-
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Component;
+
+import io.leangen.spqr.samples.demo.dto.Product;
+import io.leangen.spqr.samples.demo.dto.ProductInStock;
+import io.leangen.spqr.samples.demo.dto.Vendor;
 
 /**
  * Created by loshmee on 3-10-16.
@@ -47,7 +48,7 @@ public class VendorQuery {
         return searchResult.orElseThrow(()->new RuntimeException("Vendor not found"));
     }
 
-    public Set<Vendor> getVendor(String name){
+    public Set<Vendor> getVendors(String name){
         return this.mockVendorStorage.stream()
                 .filter(vendor -> vendor.getName().equals(name))
                 .collect(Collectors.toSet());
