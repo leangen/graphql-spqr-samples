@@ -1,16 +1,15 @@
 package io.leangen.spqr.samples.demo.query;
 
+import io.leangen.spqr.samples.demo.dto.Product;
+import io.leangen.spqr.samples.demo.dto.ProductInStock;
+import io.leangen.spqr.samples.demo.dto.Vendor;
+import org.springframework.stereotype.Component;
+
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
-
-import org.springframework.stereotype.Component;
-
-import io.leangen.spqr.samples.demo.dto.Product;
-import io.leangen.spqr.samples.demo.dto.ProductInStock;
-import io.leangen.spqr.samples.demo.dto.Vendor;
 
 /**
  * Created by loshmee on 3-10-16.
@@ -23,6 +22,15 @@ public class VendorQuery {
         this.mockVendorStorage = new LinkedHashSet<>();
     }
 
+    /**
+     * Fetching a mock list of a vendor's products in stock
+     *
+     * Invoke with:
+     * {productsInStock(vendorId: 2){product{name, description},stockSize}}
+     *
+     * @param vendorId
+     * @return
+     */
     public Set<ProductInStock> getProductsInStock(Long vendorId){
         Set<ProductInStock> mockResult = new HashSet<>();
         Product product1 = new Product(0L,"MockProduct1", "Product 1 description");

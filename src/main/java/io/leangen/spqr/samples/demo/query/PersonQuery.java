@@ -7,6 +7,7 @@ import io.leangen.spqr.samples.demo.dto.Person;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by loshmee on 25-9-16.
@@ -43,6 +44,16 @@ public class PersonQuery {
         return "Hello "+ customer.getPersonalTitle()+" "+customer.getLastName()+"!";
     }
 
+
+    /**
+     * Getting first N elements of a mock list of users
+     *
+     * Invoke with:
+     * {firstNPersons(count: 5) {firstName, lastName}}
+     *
+     * @param count max number of elements
+     * @return first persons
+     */
     @GraphQLQuery(name = "firstNPersons")
     public List<Person> getFirstNPersons(int count){
         List<Person> result = new ArrayList<>();
@@ -57,6 +68,6 @@ public class PersonQuery {
         p2.setLastName("Doe");
         result.add(p2);
 
-        return result;
+        return result.stream().limit(count).collect(Collectors.toList());
     }
 }
