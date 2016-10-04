@@ -40,7 +40,18 @@ public class VendorQuery {
         mockVendorStorage.add(createdVendor);
         return createdVendor;
     }
-
+    
+    
+    /**
+     * Retrieve saved Vendor by id.
+     * Invoke after you get an id from the createVendor mutation.
+     *
+     * Invoke with
+     * {vendorById(id:0){name,address{postalCode}}}
+     *
+     * @param id
+     * @return
+     */
     @GraphQLQuery(name = "vendorById")
     public Vendor getVendor(@GraphQLArgument(name = "id", required = true) Long id){
         final Optional<Vendor> searchResult = this.mockVendorStorage.stream()
@@ -48,7 +59,17 @@ public class VendorQuery {
                 .findFirst();
         return searchResult.orElseThrow(()->new RuntimeException("Vendor not found"));
     }
-
+    
+    
+    /**
+     * Retrieves a set of Vendors with a same name.
+     *
+     * Invoke with:
+     * {vendorsByName(name:"vendor0"){id, name, address{postalCode}}}
+     *
+     * @param name
+     * @return
+     */
     @GraphQLQuery(name = "vendorsByName")
     public Set<Vendor> getVendors(@GraphQLArgument(name = "name", required = true) String name){
         return this.mockVendorStorage.stream()
