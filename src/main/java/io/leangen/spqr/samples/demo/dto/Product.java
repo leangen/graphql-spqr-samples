@@ -1,5 +1,7 @@
 package io.leangen.spqr.samples.demo.dto;
 
+import io.leangen.graphql.annotations.GraphQLQuery;
+
 /**
  * Created by loshmee on 3-10-16.
  */
@@ -17,6 +19,7 @@ public class Product {
         this.description = description;
     }
 
+    @GraphQLQuery(name = "id")
     public Long getId() {
         return id;
     }
@@ -25,6 +28,7 @@ public class Product {
         this.id = id;
     }
 
+    @GraphQLQuery(name = "name")
     public String getName() {
         return name;
     }
@@ -33,6 +37,7 @@ public class Product {
         this.name = name;
     }
 
+    @GraphQLQuery(name = "description")
     public String getDescription() {
         return description;
     }

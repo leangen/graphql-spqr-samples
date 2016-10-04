@@ -1,5 +1,7 @@
 package io.leangen.spqr.samples.demo.dto;
 
+import io.leangen.graphql.annotations.GraphQLQuery;
+
 /**
  * Created by loshmee on 3-10-16.
  */
@@ -19,6 +21,7 @@ public class Address {
         this.postalCode = postalCode;
     }
 
+    @GraphQLQuery(name = "country")
     public String getCountry() {
         return country;
     }
@@ -27,6 +30,7 @@ public class Address {
         this.country = country;
     }
 
+    @GraphQLQuery(name = "city")
     public String getCity() {
         return city;
     }
@@ -35,6 +39,7 @@ public class Address {
         this.city = city;
     }
 
+    @GraphQLQuery(name = "streetAndNumber")
     public String getStreetAndNumber() {
         return streetAndNumber;
     }
@@ -43,6 +48,7 @@ public class Address {
         this.streetAndNumber = streetAndNumber;
     }
 
+    @GraphQLQuery(name = "postalCode")
     public String getPostalCode() {
         return postalCode;
     }

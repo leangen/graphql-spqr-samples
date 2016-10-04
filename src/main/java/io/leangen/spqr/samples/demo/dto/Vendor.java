@@ -1,5 +1,7 @@
 package io.leangen.spqr.samples.demo.dto;
 
+import io.leangen.graphql.annotations.GraphQLQuery;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -29,6 +31,7 @@ public class Vendor {
         productsInStock = new HashSet<ProductInStock>();
     }
 
+    @GraphQLQuery(name = "id")
     public Long getId() {
         return id;
     }
@@ -37,6 +40,7 @@ public class Vendor {
         this.id = id;
     }
 
+    @GraphQLQuery(name = "name")
     public String getName() {
         return name;
     }
@@ -45,6 +49,7 @@ public class Vendor {
         this.name = name;
     }
 
+    @GraphQLQuery(name = "address")
     public Address getAddress() {
         return address;
     }
@@ -73,6 +78,7 @@ public class Vendor {
         return id != null ? id.hashCode() : 0;
     }
 
+    @GraphQLQuery(name = "productsInStock")
     public Set<ProductInStock> getProductsInStock() {
         return productsInStock;
     }
