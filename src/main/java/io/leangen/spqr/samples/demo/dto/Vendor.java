@@ -15,6 +15,7 @@ public class Vendor {
     private Set<ProductInStock> productsInStock;
 
     public Vendor(){
+        productsInStock = new HashSet<ProductInStock>();
     }
 
     public Vendor(Long id, String name, Address address) {
