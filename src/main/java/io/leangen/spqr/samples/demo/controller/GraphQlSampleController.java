@@ -1,5 +1,6 @@
 package io.leangen.spqr.samples.demo.controller;
 
+import com.google.gson.Gson;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.GraphQLError;
@@ -13,32 +14,43 @@ import io.leangen.spqr.samples.demo.query.SocialNetworkQuery;
 import io.leangen.spqr.samples.demo.query.VendorQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
-public class HelloWorldController {
+public class GraphQlSampleController {
     
     private GraphQL graphQlFromAnnotated;
     private GraphQL graphQLFromDomain;
 
     @Autowired
-    public HelloWorldController(PersonQuery personQuery,
-                                SocialNetworkQuery socialNetworkQuery,
-                                DomainQuery domainQuery,
-                                ProductQuery productQuery,
-                                VendorQuery vendorQuery) {
+    public GraphQlSampleController(PersonQuery personQuery,
+                                   SocialNetworkQuery socialNetworkQuery,
+                                   DomainQuery domainQuery,
+                                   ProductQuery productQuery,
+                                   VendorQuery vendorQuery) {
+        
+        //Schema generated from annotated query classes
         GraphQLSchema schemaFromAnnotated = new GraphQLSchemaBuilder()
                 .withSingletonQuerySource(personQuery)
                 .withSingletonQuerySource(socialNetworkQuery)
                 .withSingletonQuerySource(vendorQuery)
+                //Shortcut method to set usage of default resolver extractors, type mappers and value converters
                 .withDefaults()
                 .build();
         graphQlFromAnnotated = new GraphQL(schemaFromAnnotated);
 
+        
+        //Schema generated from unannotated classes
         GraphQLSchema schemaFromDomain = new GraphQLSchemaBuilder()
+                //Using the provided query extractor that relies on the java bean convention
                 .withResolverExtractors(new BeanResolverExtractor())
                 .withSingletonQuerySource(domainQuery)
                 .withSingletonQuerySource(productQuery)
@@ -56,31 +68,34 @@ public class HelloWorldController {
     @ResponseBody
     public Object indexFromAnnotated(@RequestBody Map<String, Object> request) {
         final ExecutionResult executionResult = graphQlFromAnnotated.execute(request.get("query").toString());
-
+        
         if (!executionResult.getErrors().isEmpty()){
-            StringBuilder stringBuilder = new StringBuilder();
-            for (GraphQLError graphQLError : executionResult.getErrors()) {
-                stringBuilder.append(graphQLError.getMessage()).append(";;;;;;");
-            }
-            return stringBuilder.toString();
+            return extractErrorResponse(executionResult);
         }
 
         return executionResult.getData();
     }
-
+    
     @RequestMapping(value = "/graphql-from-domain", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Object indexFromDomain(@RequestBody Map<String, Object> request) {
-        return graphQLFromDomain.execute(request.get("query").toString()).getData();
+        ExecutionResult executionResult = graphQLFromDomain.execute(request.get("query").toString());
+    
+        if (!executionResult.getErrors().isEmpty()){
+            return extractErrorResponse(executionResult);
+        }
+        
+        return executionResult.getData();
     }
-
-    @RequestMapping(value = "/graphiql", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView index() {
-        return new ModelAndView("/index-domain");
-    }
-
-    @RequestMapping(value = "/graphiql2", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
-    public ModelAndView index2() {
-        return new ModelAndView("/index-annotation");
+    
+    //Just mocking error handling
+    private Object extractErrorResponse(ExecutionResult executionResult) {
+        Gson gson = new Gson();
+        List<String> errorMessages = executionResult.getErrors()
+                .stream()
+                .map(GraphQLError::getMessage)
+                .collect(Collectors.toList());
+        
+        return gson.toJson(errorMessages);
     }
 }
