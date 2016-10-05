@@ -26,7 +26,6 @@ public class VendorQuery {
      * Save new Vendor.
      *
      * Invoke with:
-     *
      * mutation NewVendorMutation{createVendor(vendor:{name: "vendor0", address:{ country: "Netherlands", city: "Amsterdam", streetAndNumber: "Damrak 1", postalCode: "2000XX"}}){id, name, address{streetAndNumber}, productsInStock{product{name}}}}
      *
      * @param vendor

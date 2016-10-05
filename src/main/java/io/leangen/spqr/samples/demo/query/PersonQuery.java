@@ -4,6 +4,7 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.spqr.samples.demo.dto.Customer;
 import io.leangen.spqr.samples.demo.dto.Person;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.stream.Collectors;
 /**
  * Created by loshmee on 25-9-16.
  */
+@Component
 public class PersonQuery {
     /**
      * Hello world greeting.
@@ -55,7 +57,7 @@ public class PersonQuery {
      * @return first persons
      */
     @GraphQLQuery(name = "firstNPersons")
-    public List<Person> getFirstNPersons(int count){
+    public List<Person> getFirstNPersons(@GraphQLArgument(name = "count") int count){
         List<Person> result = new ArrayList<>();
 
         Person p1 = new Person();

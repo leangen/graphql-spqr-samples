@@ -2,10 +2,12 @@ package io.leangen.spqr.samples.demo.query;
 
 import io.leangen.spqr.samples.demo.dto.Customer;
 import io.leangen.spqr.samples.demo.dto.Person;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by loshmee on 2-10-16.
  */
+@Component
 public class DomainQuery {
     /**
      * Hello world greeting.

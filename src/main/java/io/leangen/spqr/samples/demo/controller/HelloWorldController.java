@@ -9,6 +9,7 @@ import io.leangen.graphql.metadata.strategy.query.BeanResolverExtractor;
 import io.leangen.spqr.samples.demo.query.DomainQuery;
 import io.leangen.spqr.samples.demo.query.PersonQuery;
 import io.leangen.spqr.samples.demo.query.ProductQuery;
+import io.leangen.spqr.samples.demo.query.SocialNetworkQuery;
 import io.leangen.spqr.samples.demo.query.VendorQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -24,9 +25,14 @@ public class HelloWorldController {
     private GraphQL graphQLFromDomain;
 
     @Autowired
-    public HelloWorldController(ProductQuery productQuery, VendorQuery vendorQuery) {
+    public HelloWorldController(PersonQuery personQuery,
+                                SocialNetworkQuery socialNetworkQuery,
+                                DomainQuery domainQuery,
+                                ProductQuery productQuery,
+                                VendorQuery vendorQuery) {
         GraphQLSchema schemaFromAnnotated = new GraphQLSchemaBuilder()
-                .withSingletonQuerySource(new PersonQuery())
+                .withSingletonQuerySource(personQuery)
+                .withSingletonQuerySource(socialNetworkQuery)
                 .withSingletonQuerySource(vendorQuery)
                 .withDefaults()
                 .build();
@@ -34,7 +40,7 @@ public class HelloWorldController {
 
         GraphQLSchema schemaFromDomain = new GraphQLSchemaBuilder()
                 .withResolverExtractors(new BeanResolverExtractor())
-                .withSingletonQuerySource(new DomainQuery())
+                .withSingletonQuerySource(domainQuery)
                 .withSingletonQuerySource(productQuery)
                 .withDefaults()
                 .build();
