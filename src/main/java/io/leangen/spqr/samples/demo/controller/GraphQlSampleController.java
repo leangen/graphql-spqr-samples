@@ -7,6 +7,9 @@ import graphql.GraphQLError;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder;
+import io.leangen.graphql.metadata.strategy.type.DefaultTypeMetaDataGenerator;
+import io.leangen.graphql.metadata.strategy.value.gson.GsonValueMapperFactory;
+import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
 import io.leangen.spqr.samples.demo.query.DomainQuery;
 import io.leangen.spqr.samples.demo.query.PersonQuery;
 import io.leangen.spqr.samples.demo.query.ProductQuery;
@@ -42,18 +45,19 @@ public class GraphQlSampleController {
                 .withOperationsFromSingleton(personQuery)
                 .withOperationsFromSingleton(socialNetworkQuery)
                 .withOperationsFromSingleton(vendorQuery)
+                .withValueMapperFactory(new JacksonValueMapperFactory(new DefaultTypeMetaDataGenerator()))
                 //Shortcut method to set usage of default resolver extractors, type mappers and value converters
                 .withDefaults()
                 .generate();
         graphQlFromAnnotated = new GraphQL(schemaFromAnnotated);
 
-        
         //Schema generated from unannotated classes
         GraphQLSchema schemaFromDomain = new GraphQLSchemaGenerator()
                 //Using the provided query extractor that relies on the java bean convention
                 .withResolverBuilders(new BeanResolverBuilder())
                 .withOperationsFromSingleton(domainQuery)
                 .withOperationsFromSingleton(productQuery)
+                .withValueMapperFactory(new GsonValueMapperFactory(new DefaultTypeMetaDataGenerator()))
                 .withDefaults()
                 .generate();
         graphQLFromDomain = new GraphQL(schemaFromDomain);
