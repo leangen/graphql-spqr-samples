@@ -32,7 +32,7 @@ public class VendorQuery {
      * @return
      */
     @GraphQLMutation(name = "createVendor")
-    public Vendor createVendor(@GraphQLArgument(name = "vendor", required = true) Vendor vendor){
+    public Vendor createVendor(@GraphQLArgument(name = "vendor") Vendor vendor){
         Vendor createdVendor =  new Vendor((long) mockVendorStorage.size(),
                 vendor.getName(),
                 vendor.getAddress());
@@ -52,7 +52,7 @@ public class VendorQuery {
      * @return
      */
     @GraphQLQuery(name = "vendorById")
-    public Vendor getVendor(@GraphQLArgument(name = "id", required = true) Long id){
+    public Vendor getVendor(@GraphQLArgument(name = "id") Long id){
         final Optional<Vendor> searchResult = this.mockVendorStorage.stream()
                 .filter(vendor -> vendor.getId().equals(id))
                 .findFirst();
@@ -70,7 +70,7 @@ public class VendorQuery {
      * @return
      */
     @GraphQLQuery(name = "vendorsByName")
-    public Set<Vendor> getVendors(@GraphQLArgument(name = "name", required = true) String name){
+    public Set<Vendor> getVendors(@GraphQLArgument(name = "name") String name){
         return this.mockVendorStorage.stream()
                 .filter(vendor -> vendor.getName().equals(name))
                 .collect(Collectors.toSet());

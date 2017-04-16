@@ -1,7 +1,7 @@
 package io.leangen.spqr.samples.demo.query;
 
 import io.leangen.graphql.annotations.GraphQLQuery;
-import io.leangen.graphql.annotations.GraphQLResolverSource;
+import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.spqr.samples.demo.dto.Person;
 import io.leangen.spqr.samples.demo.dto.SocialNetworkAccount;
 import org.springframework.stereotype.Component;
@@ -33,7 +33,7 @@ public class SocialNetworkQuery {
      */
     @GraphQLQuery(name = "socialNetworkAccounts")
     public Set<SocialNetworkAccount> getSocialNetworkAccounts(
-            @GraphQLResolverSource Person person) throws InterruptedException {
+            @GraphQLContext Person person) throws InterruptedException {
         Set<SocialNetworkAccount> mockResult = new LinkedHashSet<>();
         
         SocialNetworkAccount twitterAccount = new SocialNetworkAccount();

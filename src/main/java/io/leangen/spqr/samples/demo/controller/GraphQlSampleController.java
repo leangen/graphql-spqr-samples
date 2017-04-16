@@ -5,8 +5,8 @@ import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.GraphQLError;
 import graphql.schema.GraphQLSchema;
-import io.leangen.graphql.GraphQLSchemaBuilder;
-import io.leangen.graphql.metadata.strategy.query.BeanResolverExtractor;
+import io.leangen.graphql.GraphQLSchemaGenerator;
+import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder;
 import io.leangen.spqr.samples.demo.query.DomainQuery;
 import io.leangen.spqr.samples.demo.query.PersonQuery;
 import io.leangen.spqr.samples.demo.query.ProductQuery;
@@ -38,24 +38,24 @@ public class GraphQlSampleController {
                                    VendorQuery vendorQuery) {
         
         //Schema generated from annotated query classes
-        GraphQLSchema schemaFromAnnotated = new GraphQLSchemaBuilder()
-                .withSingletonQuerySource(personQuery)
-                .withSingletonQuerySource(socialNetworkQuery)
-                .withSingletonQuerySource(vendorQuery)
+        GraphQLSchema schemaFromAnnotated = new GraphQLSchemaGenerator()
+                .withOperationsFromSingleton(personQuery)
+                .withOperationsFromSingleton(socialNetworkQuery)
+                .withOperationsFromSingleton(vendorQuery)
                 //Shortcut method to set usage of default resolver extractors, type mappers and value converters
                 .withDefaults()
-                .build();
+                .generate();
         graphQlFromAnnotated = new GraphQL(schemaFromAnnotated);
 
         
         //Schema generated from unannotated classes
-        GraphQLSchema schemaFromDomain = new GraphQLSchemaBuilder()
+        GraphQLSchema schemaFromDomain = new GraphQLSchemaGenerator()
                 //Using the provided query extractor that relies on the java bean convention
-                .withResolverExtractors(new BeanResolverExtractor())
-                .withSingletonQuerySource(domainQuery)
-                .withSingletonQuerySource(productQuery)
+                .withResolverBuilders(new BeanResolverBuilder())
+                .withOperationsFromSingleton(domainQuery)
+                .withOperationsFromSingleton(productQuery)
                 .withDefaults()
-                .build();
+                .generate();
         graphQLFromDomain = new GraphQL(schemaFromDomain);
     }
 

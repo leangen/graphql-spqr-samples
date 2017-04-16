@@ -17,8 +17,9 @@
     </repositories>
 
 	<properties>
-		<springframework.version>4.3.0.RELEASE</springframework.version>
-		<jackson.library>2.7.5</jackson.library>
+		<springframework.version>4.3.7.RELEASE</springframework.version>
+		<jackson.library>2.8.8</jackson.library>
+		<javax.servlet-api.version>3.1.0</javax.servlet-api.version>
 	</properties>
 
 	<dependencies>
@@ -41,9 +42,10 @@
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>javax.servlet-api</artifactId>
-			<version>3.1.0</version>
+			<version>${javax.servlet-api.version}</version>
 			<scope>provided</scope>
 		</dependency>
+
 		<dependency>
 		    <groupId>com.fasterxml.jackson.core</groupId>
 		    <artifactId>jackson-databind</artifactId>
@@ -54,7 +56,7 @@
         <dependency>
             <groupId>io.leangen.graphql</groupId>
             <artifactId>spqr</artifactId>
-            <version>1.0.0.rc2</version>
+            <version>0.7.0</version>
         </dependency>
 	</dependencies>
 
