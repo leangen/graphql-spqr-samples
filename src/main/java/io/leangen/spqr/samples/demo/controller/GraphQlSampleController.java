@@ -49,7 +49,7 @@ public class GraphQlSampleController {
                 //Shortcut method to set usage of default resolver extractors, type mappers and value converters
                 .withDefaults()
                 .generate();
-        graphQlFromAnnotated = new GraphQL(schemaFromAnnotated);
+        graphQlFromAnnotated = GraphQL.newGraphQL(schemaFromAnnotated).build();
 
         //Schema generated from unannotated classes
         GraphQLSchema schemaFromDomain = new GraphQLSchemaGenerator()
@@ -60,7 +60,7 @@ public class GraphQlSampleController {
                 .withValueMapperFactory(new GsonValueMapperFactory(new DefaultTypeMetaDataGenerator()))
                 .withDefaults()
                 .generate();
-        graphQLFromDomain = new GraphQL(schemaFromDomain);
+        graphQLFromDomain = GraphQL.newGraphQL(schemaFromDomain).build();
     }
 
     @RequestMapping("/")
