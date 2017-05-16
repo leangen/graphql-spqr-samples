@@ -7,7 +7,6 @@ import graphql.GraphQLError;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder;
-import io.leangen.graphql.metadata.strategy.type.DefaultTypeMetaDataGenerator;
 import io.leangen.graphql.metadata.strategy.value.gson.GsonValueMapperFactory;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
 import io.leangen.spqr.samples.demo.query.DomainQuery;
@@ -45,7 +44,7 @@ public class GraphQlSampleController {
                 .withOperationsFromSingleton(personQuery)
                 .withOperationsFromSingleton(socialNetworkQuery)
                 .withOperationsFromSingleton(vendorQuery)
-                .withValueMapperFactory(new JacksonValueMapperFactory(new DefaultTypeMetaDataGenerator()))
+                .withValueMapperFactory(new JacksonValueMapperFactory())
                 //Shortcut method to set usage of default resolver extractors, type mappers and value converters
                 .withDefaults()
                 .generate();
@@ -54,10 +53,10 @@ public class GraphQlSampleController {
         //Schema generated from unannotated classes
         GraphQLSchema schemaFromDomain = new GraphQLSchemaGenerator()
                 //Using the provided query extractor that relies on the java bean convention
-                .withResolverBuilders(new BeanResolverBuilder())
+                .withResolverBuilders(new BeanResolverBuilder(null))
                 .withOperationsFromSingleton(domainQuery)
                 .withOperationsFromSingleton(productQuery)
-                .withValueMapperFactory(new GsonValueMapperFactory(new DefaultTypeMetaDataGenerator()))
+                .withValueMapperFactory(new GsonValueMapperFactory())
                 .withDefaults()
                 .generate();
         graphQLFromDomain = GraphQL.newGraphQL(schemaFromDomain).build();
@@ -77,7 +76,7 @@ public class GraphQlSampleController {
             return extractErrorResponse(executionResult);
         }
 
-        return executionResult.getData();
+        return executionResult;
     }
     
     @RequestMapping(value = "/graphql-from-domain", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
