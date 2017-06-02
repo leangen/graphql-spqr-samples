@@ -20,4 +20,9 @@ public class GraphiqlController {
     public ModelAndView indexDomain() {
         return new ModelAndView("/index-annotation");
     }
+    
+    @RequestMapping(value = "/workspace", method = RequestMethod.GET, produces = MediaType.TEXT_HTML_VALUE)
+    public ModelAndView workspace() {
+        return new ModelAndView("/workspace");
+    }
 }

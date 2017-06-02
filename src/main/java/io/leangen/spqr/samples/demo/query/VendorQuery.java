@@ -33,7 +33,7 @@ public class VendorQuery {
      */
     @GraphQLMutation(name = "createVendor")
     public Vendor createVendor(@GraphQLArgument(name = "vendor") Vendor vendor){
-        Vendor createdVendor =  new Vendor((long) mockVendorStorage.size(),
+        Vendor createdVendor =  new Vendor((long) mockVendorStorage.size() + 1,
                 vendor.getName(),
                 vendor.getAddress());
         mockVendorStorage.add(createdVendor);
