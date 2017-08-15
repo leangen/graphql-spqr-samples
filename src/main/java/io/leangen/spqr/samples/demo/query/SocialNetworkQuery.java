@@ -1,7 +1,7 @@
 package io.leangen.spqr.samples.demo.query;
 
-import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.annotations.GraphQLContext;
+import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.spqr.samples.demo.dto.Person;
 import io.leangen.spqr.samples.demo.dto.SocialNetworkAccount;
 import org.springframework.stereotype.Component;

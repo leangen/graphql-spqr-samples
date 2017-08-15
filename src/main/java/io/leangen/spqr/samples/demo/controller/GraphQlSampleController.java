@@ -1,6 +1,5 @@
 package io.leangen.spqr.samples.demo.controller;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import graphql.ExecutionResult;
 import graphql.GraphQL;
 import graphql.GraphQLError;
