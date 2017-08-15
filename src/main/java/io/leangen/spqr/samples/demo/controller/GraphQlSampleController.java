@@ -67,7 +67,7 @@ public class GraphQlSampleController {
 		return "Welcome to GraphQL-SPQR Demo app.";
 	}
     
-    @RequestMapping(value = "/graphql-from-annotation", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @RequestMapping(value = "/graphql", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Object indexFromAnnotated(@RequestBody Map<String, Object> request) {
         final ExecutionResult executionResult = graphQlFromAnnotated.execute(request.get("query").toString());
