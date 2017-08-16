@@ -18,7 +18,7 @@ API mapped using bean resolver is exposed on /graphql-from-domain
 
 Example queries can be found in javadoc for query methods
 
-For an elaborate introspection query you might want to use this:
+For an elaborate introspection query you might want to use this (if you use it on default URL from Sangria example it will take a very long time, as that's a big schema):
 ```graphql
 query IntrospectionQuery {
     __schema {
