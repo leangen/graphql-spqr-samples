@@ -5,9 +5,15 @@ import graphql.GraphQL;
 import graphql.GraphQLError;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaGenerator;
+import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
 import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder;
+import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
-import io.leangen.spqr.samples.demo.query.*;
+import io.leangen.spqr.samples.demo.query.annotated.PersonQuery;
+import io.leangen.spqr.samples.demo.query.annotated.SocialNetworkQuery;
+import io.leangen.spqr.samples.demo.query.annotated.VendorQuery;
+import io.leangen.spqr.samples.demo.query.unannotated.DomainQuery;
+import io.leangen.spqr.samples.demo.query.unannotated.ProductQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +30,7 @@ import java.util.stream.Collectors;
 public class GraphQlSampleController {
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphQlSampleController.class);
 
-
     private final GraphQL graphQlFromAnnotated;
-    private final GraphQL graphQLFromDomain;
 
     @Autowired
     public GraphQlSampleController(PersonQuery personQuery,
@@ -37,27 +41,20 @@ public class GraphQlSampleController {
 
         //Schema generated from annotated query classes
         GraphQLSchema schemaFromAnnotated = new GraphQLSchemaGenerator()
+                .withResolverBuilders(
+                        //Discover by annotations
+                        new AnnotatedResolverBuilder(),
+                        //Discover public methods inside root package
+                        new PublicResolverBuilder("io.leangen.spqr.samples.demo"))
                 .withOperationsFromSingleton(personQuery)
                 .withOperationsFromSingleton(socialNetworkQuery)
                 .withOperationsFromSingleton(vendorQuery)
-                .withValueMapperFactory(new JacksonValueMapperFactory())
-                //Shortcut method to set usage of default resolver extractors, type mappers and value converters
-                .withDefaults()
-                .generate();
-        graphQlFromAnnotated = GraphQL.newGraphQL(schemaFromAnnotated).build();
-        LOGGER.debug("Generated schema from annotated query classes");
-
-        //Schema generated from unannotated classes
-        GraphQLSchema schemaFromDomain = new GraphQLSchemaGenerator()
-                //Using the provided query extractor that relies on the java bean convention
-                .withResolverBuilders(new BeanResolverBuilder(null))
                 .withOperationsFromSingleton(domainQuery)
                 .withOperationsFromSingleton(productQuery)
                 .withValueMapperFactory(new JacksonValueMapperFactory())
-                .withDefaults()
                 .generate();
-        graphQLFromDomain = GraphQL.newGraphQL(schemaFromDomain).build();
-        LOGGER.debug("Generated schema from unannotated query classes");
+        graphQlFromAnnotated = GraphQL.newGraphQL(schemaFromAnnotated).build();
+        LOGGER.debug("Generated schema from query classes");
     }
 
     @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
@@ -70,18 +67,6 @@ public class GraphQlSampleController {
         }
 
         return executionResult;
-    }
-
-    @PostMapping(value = "/graphql-from-domain", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    @ResponseBody
-    public Object indexFromDomain(@RequestBody Map<String, Object> request) {
-        ExecutionResult executionResult = graphQLFromDomain.execute(request.get("query").toString());
-
-        if (!executionResult.getErrors().isEmpty()) {
-            return extractErrorResponse(executionResult);
-        }
-
-        return executionResult.getData();
     }
 
     //Just mocking error handling

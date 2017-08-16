@@ -1,4 +1,4 @@
-package io.leangen.spqr.samples.demo.query;
+package io.leangen.spqr.samples.demo.query.unannotated;
 
 import io.leangen.spqr.samples.demo.dto.Product;
 import io.leangen.spqr.samples.demo.dto.ProductInStock;
@@ -17,7 +17,7 @@ public class ProductQuery {
      * Fetching a mock list of a vendor's products in stock
      *
      * Invoke with:
-     * {productsInStock(vendorId: 2){product{name, description},stockSize}}
+     * {getProductsInStock(vendorId: 2){product{name, description},stockSize}}
      *
      * @param vendorId
      * @return

@@ -1,4 +1,4 @@
-package io.leangen.spqr.samples.demo.query;
+package io.leangen.spqr.samples.demo.query.unannotated;
 
 import io.leangen.spqr.samples.demo.dto.Customer;
 import io.leangen.spqr.samples.demo.dto.Person;
@@ -13,7 +13,7 @@ public class DomainQuery {
      * Hello world greeting.
      *
      * Invoke with:
-     * {normalGreeting(person: {firstName: "John", lastName: "Doe"})}
+     * {getNormalGreeting(person: {firstName: "John", lastName: "Doe"})}
      *
      * @param person Person to greet
      * @return Informal hello string
@@ -27,7 +27,7 @@ public class DomainQuery {
      * Hello world polite greeting.
      *
      * Invoke with:
-     * {politeGreeting(customer: {firstName: "John", lastName: "Doe", title: MR})}
+     * {getPoliteGreeting(customer: {firstName: "John", lastName: "Doe", title: MR})}
      *
      * @param customer Customer to greet politely
      * @return Informal hello string

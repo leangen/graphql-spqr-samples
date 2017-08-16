@@ -1,4 +1,4 @@
-package io.leangen.spqr.samples.demo.query;
+package io.leangen.spqr.samples.demo.query.annotated;
 
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLQuery;
