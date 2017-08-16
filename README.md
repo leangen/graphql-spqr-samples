@@ -18,7 +18,7 @@ API mapped using bean resolver is exposed on /graphql-from-domain
 Example queries can be found in javadoc for query methods
 
 For an elaborate introspection query you might want to use this:
-```json
+```graphql
 query IntrospectionQuery {
     __schema {
       queryType { name }
