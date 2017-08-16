@@ -6,7 +6,6 @@ import graphql.GraphQLError;
 import graphql.schema.GraphQLSchema;
 import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
-import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder;
 import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
 import io.leangen.spqr.samples.demo.query.annotated.PersonQuery;
@@ -54,7 +53,7 @@ public class GraphQlSampleController {
                 .withValueMapperFactory(new JacksonValueMapperFactory())
                 .generate();
         graphQlFromAnnotated = GraphQL.newGraphQL(schemaFromAnnotated).build();
-        LOGGER.debug("Generated schema from query classes");
+        LOGGER.info("Generated GraphQL schema using SPQR");
     }
 
     @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
