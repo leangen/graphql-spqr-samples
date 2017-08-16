@@ -6,5 +6,5 @@ spring:
     static-locations: classpath:/static/
 logging:
   level:
-    ROOT: info
+    ROOT: warn
     io.leangen: debug
