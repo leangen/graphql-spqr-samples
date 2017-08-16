@@ -9,7 +9,8 @@ Package with maven, run the jar, play around.
 
 Out of the box it runs on port 7777
 
-Graphiql tool is mapped to root (e.g. http://localhost:7777/)
+Graphiql tool is mapped to root (e.g. http://localhost:7777/), 
+with current version you have to use protocol in the URL you're targeting (e.g. http://localhost:7777/graphql will work but localhost:7777/graphql will not)
 
 API mapped using annotations is exposed on /graphql
 
