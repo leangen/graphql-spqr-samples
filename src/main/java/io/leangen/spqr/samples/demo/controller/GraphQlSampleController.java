@@ -8,15 +8,22 @@ import io.leangen.graphql.GraphQLSchemaGenerator;
 import io.leangen.graphql.metadata.strategy.query.BeanResolverBuilder;
 import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
 import io.leangen.spqr.samples.demo.query.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
 public class GraphQlSampleController {
+    private static final Logger LOGGER = LoggerFactory.getLogger(GraphQlSampleController.class);
+
 
     private final GraphQL graphQlFromAnnotated;
     private final GraphQL graphQLFromDomain;
@@ -38,6 +45,7 @@ public class GraphQlSampleController {
                 .withDefaults()
                 .generate();
         graphQlFromAnnotated = GraphQL.newGraphQL(schemaFromAnnotated).build();
+        LOGGER.debug("Generated schema from annotated query classes");
 
         //Schema generated from unannotated classes
         GraphQLSchema schemaFromDomain = new GraphQLSchemaGenerator()
@@ -49,9 +57,10 @@ public class GraphQlSampleController {
                 .withDefaults()
                 .generate();
         graphQLFromDomain = GraphQL.newGraphQL(schemaFromDomain).build();
+        LOGGER.debug("Generated schema from unannotated query classes");
     }
 
-    @RequestMapping(value = "/graphql", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Object indexFromAnnotated(@RequestBody Map<String, Object> request) {
         final ExecutionResult executionResult = graphQlFromAnnotated.execute(request.get("query").toString());
@@ -63,7 +72,7 @@ public class GraphQlSampleController {
         return executionResult;
     }
 
-    @RequestMapping(value = "/graphql-from-domain", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/graphql-from-domain", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Object indexFromDomain(@RequestBody Map<String, Object> request) {
         ExecutionResult executionResult = graphQLFromDomain.execute(request.get("query").toString());
