@@ -10,9 +10,6 @@ import java.util.LinkedHashSet;
 import java.util.Random;
 import java.util.Set;
 
-/**
- * Created by milos on 5-10-16.
- */
 @Component
 public class SocialNetworkQuery {
     private Random random;

@@ -2,9 +2,6 @@ package io.leangen.spqr.samples.demo.dto;
 
 import io.leangen.graphql.annotations.GraphQLQuery;
 
-/**
- * Created by milos on 5-10-16.
- */
 public class SocialNetworkAccount {
     private String networkName;
     private String username;

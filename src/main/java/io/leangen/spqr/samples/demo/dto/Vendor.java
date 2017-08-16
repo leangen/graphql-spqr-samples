@@ -5,9 +5,6 @@ import io.leangen.graphql.annotations.GraphQLQuery;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by loshmee on 3-10-16.
- */
 public class Vendor {
     private Long id;
     private String name;

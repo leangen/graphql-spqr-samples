@@ -2,9 +2,6 @@ package io.leangen.spqr.samples.demo.dto;
 
 import io.leangen.graphql.annotations.GraphQLQuery;
 
-/**
- * Created by loshmee on 3-10-16.
- */
 public class Product {
     private Long id;
     private String name;

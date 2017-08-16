@@ -10,9 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by loshmee on 25-9-16.
- */
 @Component
 public class PersonQuery {
     /**
@@ -22,7 +19,7 @@ public class PersonQuery {
      * {greeting(Person: {firstName: "John", lastName: "Doe"})}
      *
      * @param person Person to greet
-     * @return Informal hello string
+     * @return Hello string
      */
     @GraphQLQuery(name = "greeting")
     public String getGreeting(@GraphQLArgument(name = "Person", description = "Person to greet.")

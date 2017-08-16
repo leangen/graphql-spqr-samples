@@ -4,9 +4,6 @@ import io.leangen.spqr.samples.demo.dto.Customer;
 import io.leangen.spqr.samples.demo.dto.Person;
 import org.springframework.stereotype.Component;
 
-/**
- * Created by loshmee on 2-10-16.
- */
 @Component
 public class DomainQuery {
     /**
@@ -30,7 +27,7 @@ public class DomainQuery {
      * {getPoliteGreeting(customer: {firstName: "John", lastName: "Doe", title: MR})}
      *
      * @param customer Customer to greet politely
-     * @return Informal hello string
+     * @return Formal hello string
      */
     public String getPoliteGreeting(final Customer customer){
         return "Hello "+ customer.getPersonalTitle()+" "+customer.getLastName()+"!";

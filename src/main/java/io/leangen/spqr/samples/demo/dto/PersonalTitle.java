@@ -1,8 +1,5 @@
 package io.leangen.spqr.samples.demo.dto;
 
-/**
- * Created by loshmee on 27-9-16.
- */
 public enum PersonalTitle {
     MR("Mr."),
     MRS("Mrs."),

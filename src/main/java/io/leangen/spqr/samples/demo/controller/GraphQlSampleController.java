@@ -38,12 +38,12 @@ public class GraphQlSampleController {
                                    ProductQuery productQuery,
                                    VendorQuery vendorQuery) {
 
-        //Schema generated from annotated query classes
+        //Schema generated from query classes
         GraphQLSchema schemaFromAnnotated = new GraphQLSchemaGenerator()
                 .withResolverBuilders(
-                        //Discover by annotations
+                        //Resolve by annotations
                         new AnnotatedResolverBuilder(),
-                        //Discover public methods inside root package
+                        //Resolve public methods inside root package
                         new PublicResolverBuilder("io.leangen.spqr.samples.demo"))
                 .withOperationsFromSingleton(personQuery)
                 .withOperationsFromSingleton(socialNetworkQuery)

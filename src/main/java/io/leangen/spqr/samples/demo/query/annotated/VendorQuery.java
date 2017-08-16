@@ -11,9 +11,6 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-/**
- * Created by loshmee on 4-10-16.
- */
 @Component
 public class VendorQuery {
     private Set<Vendor> mockVendorStorage;

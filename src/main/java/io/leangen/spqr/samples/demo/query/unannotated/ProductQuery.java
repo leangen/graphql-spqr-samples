@@ -7,9 +7,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashSet;
 import java.util.Set;
 
-/**
- * Created by loshmee on 3-10-16.
- */
 @Component
 public class ProductQuery {
 
