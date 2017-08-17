@@ -22,7 +22,7 @@ public class Application extends SpringBootServletInitializer {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName(
-                        "forward:/graphiql/workspace.html");
+                        "forward:/graphiql/index.html");
             }
         };
     }
