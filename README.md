@@ -10,14 +10,13 @@ Package with maven, run the jar, play around.
 
 Out of the box it runs on port 7777
 
-Graphiql tool is mapped to root (e.g. http://localhost:7777/), 
-with current version you have to use protocol in the URL you're targeting (e.g. http://localhost:7777/graphql will work but localhost:7777/graphql will not)
+Graphiql tool is mapped to root (e.g. http://localhost:7777/)
 
 API is exposed on /graphql
 
 Example queries can be found in javadoc for query methods
 
-For an elaborate introspection query you might want to use this (if you use it on default URL from Sangria example it will take a very long time, as that's a big schema):
+For an elaborate introspection query you might want to use:
 ```graphql
 query IntrospectionQuery {
     __schema {
