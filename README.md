@@ -1,4 +1,4 @@
-# GraphQL-SPQR Spring MVC Samples
+# GraphQL-SPQR Spring Boot Samples
 
 [![Build Status](https://travis-ci.org/leangen/graphql-spqr-samples.svg?branch=master)](https://travis-ci.org/leangen/graphql-spqr-samples)
 [![Join the chat at https://gitter.im/leangen/graphql-spqr](https://badges.gitter.im/leangen/graphql-spqr.svg)](https://gitter.im/leangen/graphql-spqr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
