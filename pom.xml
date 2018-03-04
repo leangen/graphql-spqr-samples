@@ -29,7 +29,7 @@
         <dependency>
             <groupId>io.leangen.graphql</groupId>
             <artifactId>spqr</artifactId>
-            <version>0.9.4</version>
+            <version>0.9.6</version>
         </dependency>
 	</dependencies>
 
