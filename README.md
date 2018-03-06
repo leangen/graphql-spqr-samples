@@ -107,3 +107,8 @@ query IntrospectionQuery {
     }
   }
 ```
+
+
+### Subscriptions using websockets
+
+To see the example subscription working navigate to http://localhost:7777/subscription-example
