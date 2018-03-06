@@ -1,6 +1,7 @@
 package io.leangen.spqr.samples.demo.controller;
 
 import graphql.ExecutionInput;
+import io.leangen.spqr.samples.demo.query.annotated.TimerSubscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,27 +35,11 @@ public class GraphQLSampleController {
     private final GraphQL graphQL;
 
     @Autowired
-    public GraphQLSampleController(PersonQuery personQuery,
-                                   SocialNetworkQuery socialNetworkQuery,
-                                   DomainQuery domainQuery,
-                                   ProductQuery productQuery,
-                                   VendorQuery vendorQuery) {
+    public GraphQLSampleController(GraphQLSchema graphQLSchema) {
 
         //Schema generated from query classes
-        GraphQLSchema schema = new GraphQLSchemaGenerator()
-                .withResolverBuilders(
-                        //Resolve by annotations
-                        new AnnotatedResolverBuilder(),
-                        //Resolve public methods inside root package
-                        new PublicResolverBuilder("io.leangen.spqr.samples.demo"))
-                .withOperationsFromSingleton(personQuery)
-                .withOperationsFromSingleton(socialNetworkQuery)
-                .withOperationsFromSingleton(vendorQuery)
-                .withOperationsFromSingleton(domainQuery)
-                .withOperationsFromSingleton(productQuery)
-                .withValueMapperFactory(new JacksonValueMapperFactory())
-                .generate();
-        graphQL = GraphQL.newGraphQL(schema).build();
+
+        graphQL = GraphQL.newGraphQL(graphQLSchema).build();
 
         LOGGER.info("Generated GraphQL schema using SPQR");
     }
