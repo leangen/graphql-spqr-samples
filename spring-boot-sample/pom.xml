@@ -31,6 +31,13 @@
             <artifactId>spqr</artifactId>
             <version>0.9.6</version>
         </dependency>
+		<!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-core</artifactId>
+			<version>3.1.3.RELEASE</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
