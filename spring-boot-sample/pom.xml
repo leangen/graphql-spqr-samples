@@ -32,7 +32,7 @@
 		<dependency>
 			<groupId>io.leangen.graphql</groupId>
 			<artifactId>spqr</artifactId>
-			<version>0.9.6</version>
+			<version>0.9.8</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/io.projectreactor/reactor-core -->
 		<dependency>
