@@ -1,6 +1,6 @@
 # IDEA
 
-/.idea
+.idea
 .idea_modules/
 *.iml
 /lib

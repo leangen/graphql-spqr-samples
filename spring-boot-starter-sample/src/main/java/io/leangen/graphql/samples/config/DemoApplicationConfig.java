@@ -1,9 +1,9 @@
 package io.leangen.graphql.samples.config;
 
-import io.leangen.graphql.samples.repo.IssueRepo;
+import io.leangen.graphql.samples.repo.TaskRepo;
 import io.leangen.graphql.samples.repo.ProjectRepo;
-import io.leangen.graphql.samples.service.IssueService;
 import io.leangen.graphql.samples.service.ProjectService;
+import io.leangen.graphql.samples.service.TaskService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,12 +21,12 @@ public class DemoApplicationConfig {
     }
 
     @Bean
-    public IssueService issueService() {
-        return new IssueService(issueRepo());
+    public TaskService taskService() {
+        return new TaskService(taskRepo());
     }
 
     @Bean
-    public IssueRepo issueRepo() {
-        return new IssueRepo(projectRepo());
+    public TaskRepo taskRepo() {
+        return new TaskRepo(projectRepo());
     }
 }

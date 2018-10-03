@@ -9,7 +9,7 @@ public class Project {
 
     private final String code;
     private final String name;
-    private final List<Issue> issues;
+    private final List<Task> tasks;
     private final List<String> tags;
 
     public Project(String name) {
@@ -17,15 +17,15 @@ public class Project {
     }
 
     @JsonCreator
-    public Project(String code, String name, List<Issue> issues, List<String> tags) {
+    public Project(String code, String name, List<Task> tasks, List<String> tags) {
         this.code = code;
         this.name = name;
-        this.issues = issues;
+        this.tasks = tasks;
         this.tags = tags;
     }
 
-    public void addIssue(Issue issue) {
-        this.issues.add(issue);
+    public void addTask(Task task) {
+        this.tasks.add(task);
     }
 
     public void addTag(String tag) {
@@ -40,8 +40,8 @@ public class Project {
         return code;
     }
 
-    public List<Issue> getIssues() {
-        return issues;
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     public List<String> getTags() {

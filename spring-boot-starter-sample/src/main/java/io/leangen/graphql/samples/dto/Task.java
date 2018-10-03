@@ -2,17 +2,19 @@ package io.leangen.graphql.samples.dto;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
-public class Issue {
+public class Task {
 
     private String code;
     private String description;
+    private Type type;
     private Status status;
 
     @JsonCreator
-    public Issue(String code, String description, Status status) {
+    public Task(String code, String description, Status status, Type type) {
         this.code = code;
         this.description = description;
         this.status = status;
+        this.type = type;
     }
 
     public String getCode() {
@@ -21,6 +23,10 @@ public class Issue {
 
     public String getDescription() {
         return description;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     public Status getStatus() {

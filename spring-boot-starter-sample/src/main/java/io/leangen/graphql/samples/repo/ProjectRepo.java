@@ -1,6 +1,6 @@
 package io.leangen.graphql.samples.repo;
 
-import io.leangen.graphql.samples.dto.Issue;
+import io.leangen.graphql.samples.dto.Task;
 import io.leangen.graphql.samples.dto.Project;
 import org.springframework.stereotype.Repository;
 
@@ -23,8 +23,8 @@ public class ProjectRepo {
         return project;
     }
 
-    public void addIssue(String code, Issue issue) {
-        projects.get(code).addIssue(issue);
+    public void addTask(String code, Task task) {
+        projects.get(code).addTask(task);
     }
 
     public Project byCode(String code) {
@@ -33,7 +33,7 @@ public class ProjectRepo {
 
     public List<Project> byTags(String... tags) {
         return projects.values().stream()
-                .filter(project -> Arrays.stream(tags).anyMatch(tag ->
+                .filter(project -> tags == null || Arrays.stream(tags).anyMatch(tag ->
                         project.getTags().contains(tag)))
                 .collect(Collectors.toList());
     }
@@ -56,6 +56,6 @@ public class ProjectRepo {
         if (chars.size() < 3) {
             chars.add(1, name.substring(1, 3).toUpperCase());
         }
-        return chars.stream().collect(Collectors.joining());
+        return String.join("", chars);
     }
 }

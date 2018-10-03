@@ -4,15 +4,15 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
-import io.leangen.graphql.samples.dto.Issue;
 import io.leangen.graphql.samples.dto.Project;
-import io.leangen.graphql.samples.dto.Status;
-import io.leangen.graphql.samples.repo.IssueRepo;
+import io.leangen.graphql.samples.dto.Task;
+import io.leangen.graphql.samples.repo.TaskRepo;
 import io.leangen.graphql.samples.repo.ProjectRepo;
 import io.leangen.graphql.spqr.spring.annotation.GraphQLApi;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @GraphQLApi
 @Service
@@ -40,12 +40,12 @@ public class ProjectService {
     }
 
     @GraphQLQuery
-    public Project project(@GraphQLContext Issue issue) {
-        return project(IssueRepo.getProjectCode(issue.getCode()));
+    public Project project(@GraphQLContext Task task) {
+        return project(TaskRepo.getProjectCode(task.getCode()));
     }
 
     @GraphQLQuery
-    public boolean done(@GraphQLContext Project project) {
-        return project.getIssues().stream().allMatch(issue -> issue.getStatus() == Status.DONE);
+    public long currentFunding(@GraphQLContext Project project) {
+        return ThreadLocalRandom.current().nextInt(1000) * 1000;
     }
 }
