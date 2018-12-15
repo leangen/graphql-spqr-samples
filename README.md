@@ -3,16 +3,16 @@
 [![Build Status](https://travis-ci.org/leangen/graphql-spqr-samples.svg?branch=master)](https://travis-ci.org/leangen/graphql-spqr-samples)
 [![Join the chat at https://gitter.im/leangen/graphql-spqr](https://badges.gitter.im/leangen/graphql-spqr.svg)](https://gitter.im/leangen/graphql-spqr?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-Simplistic Spring Boot application for demoing GraphQl SPQR lib's capabilities.
+Simplistic Spring Boot application for demoing GraphQL SPQR lib's capabilities.
 This is mostly used by us for doing live demo's in our talks, not as documentation.
 
-Package with maven, run the jar, play around.
+Package with Maven, run the jar, play around.
 
-Out of the box it runs on port 7777
+Out of the box, the application runs on port 8000
 
-Graphiql tool is mapped to root (e.g. http://localhost:7777/)
+GraphQL Playground (graphical environment) is mapped to `/gui` by default (e.g. http://localhost:8000/gui)
 
-API is exposed on /graphql
+API is exposed on `/graphql`
 
 Example queries can be found in javadoc for query methods
 
