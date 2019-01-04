@@ -15,6 +15,7 @@ import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.FluxSink;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 
@@ -52,8 +53,18 @@ public class TaskService {
     }
 
     @GraphQLQuery
+    public Flux<Task> tasksWebflux(String projectCode, Status... statuses) {
+        return Flux.fromIterable(repo.byProjectCodeAndStatus(projectCode, statuses));
+    }
+
+    @GraphQLQuery
     public Task task(String code) {
         return repo.byCode(code);
+    }
+
+    @GraphQLQuery
+    public Mono<Task> taskWebfux(String code) {
+        return Mono.just(repo.byCode(code));
     }
 
     @GraphQLSubscription
