@@ -63,7 +63,7 @@ public class TaskService {
     }
 
     @GraphQLQuery
-    public Mono<Task> taskWebfux(String code) {
+    public Mono<Task> taskWebflux(String code) {
         return Mono.just(repo.byCode(code));
     }
 
