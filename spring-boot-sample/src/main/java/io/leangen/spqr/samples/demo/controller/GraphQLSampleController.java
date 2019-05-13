@@ -1,6 +1,15 @@
 package io.leangen.spqr.samples.demo.controller;
 
 import graphql.ExecutionInput;
+import graphql.ExecutionResult;
+import graphql.GraphQL;
+import graphql.schema.GraphQLSchema;
+import io.leangen.graphql.GraphQLSchemaGenerator;
+import io.leangen.spqr.samples.demo.query.annotated.PersonQuery;
+import io.leangen.spqr.samples.demo.query.annotated.SocialNetworkQuery;
+import io.leangen.spqr.samples.demo.query.annotated.VendorQuery;
+import io.leangen.spqr.samples.demo.query.unannotated.DomainQuery;
+import io.leangen.spqr.samples.demo.query.unannotated.ProductQuery;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,22 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Map;
-
-import graphql.ExecutionResult;
-import graphql.GraphQL;
-import graphql.schema.GraphQLSchema;
-import io.leangen.graphql.GraphQLSchemaGenerator;
-import io.leangen.graphql.metadata.strategy.query.AnnotatedResolverBuilder;
-import io.leangen.graphql.metadata.strategy.query.PublicResolverBuilder;
-import io.leangen.graphql.metadata.strategy.value.jackson.JacksonValueMapperFactory;
-import io.leangen.spqr.samples.demo.query.annotated.PersonQuery;
-import io.leangen.spqr.samples.demo.query.annotated.SocialNetworkQuery;
-import io.leangen.spqr.samples.demo.query.annotated.VendorQuery;
-import io.leangen.spqr.samples.demo.query.unannotated.DomainQuery;
-import io.leangen.spqr.samples.demo.query.unannotated.ProductQuery;
-
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 public class GraphQLSampleController {
@@ -42,17 +37,7 @@ public class GraphQLSampleController {
 
         //Schema generated from query classes
         GraphQLSchema schema = new GraphQLSchemaGenerator()
-                .withResolverBuilders(
-                        //Resolve by annotations
-                        new AnnotatedResolverBuilder(),
-                        //Resolve public methods inside root package
-                        new PublicResolverBuilder("io.leangen.spqr.samples.demo"))
-                .withOperationsFromSingleton(personQuery)
-                .withOperationsFromSingleton(socialNetworkQuery)
-                .withOperationsFromSingleton(vendorQuery)
-                .withOperationsFromSingleton(domainQuery)
-                .withOperationsFromSingleton(productQuery)
-                .withValueMapperFactory(new JacksonValueMapperFactory())
+                .withOperationsFromSingletons(personQuery, socialNetworkQuery, vendorQuery, domainQuery, productQuery)
                 .generate();
         graphQL = GraphQL.newGraphQL(schema).build();
 
