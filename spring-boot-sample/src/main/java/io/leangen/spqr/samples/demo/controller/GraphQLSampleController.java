@@ -37,6 +37,7 @@ public class GraphQLSampleController {
 
         //Schema generated from query classes
         GraphQLSchema schema = new GraphQLSchemaGenerator()
+                .withBasePackages("io.leangen.spqr.samples.demo")
                 .withOperationsFromSingletons(personQuery, socialNetworkQuery, vendorQuery, domainQuery, productQuery)
                 .generate();
         graphQL = GraphQL.newGraphQL(schema).build();
