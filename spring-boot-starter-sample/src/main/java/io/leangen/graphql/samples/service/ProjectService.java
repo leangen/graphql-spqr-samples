@@ -2,17 +2,22 @@ package io.leangen.graphql.samples.service;
 
 import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
+import io.leangen.graphql.annotations.GraphQLEnvironment;
 import io.leangen.graphql.annotations.GraphQLMutation;
 import io.leangen.graphql.annotations.GraphQLQuery;
+import io.leangen.graphql.execution.ResolutionEnvironment;
+import io.leangen.graphql.execution.relay.Page;
 import io.leangen.graphql.samples.dto.Project;
 import io.leangen.graphql.samples.dto.Task;
-import io.leangen.graphql.samples.repo.TaskRepo;
 import io.leangen.graphql.samples.repo.ProjectRepo;
-import io.leangen.graphql.spqr.spring.annotation.GraphQLApi;
+import io.leangen.graphql.samples.repo.TaskRepo;
+import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
+import org.dataloader.DataLoader;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.CompletableFuture;
 
 @GraphQLApi
 @Service
@@ -35,8 +40,18 @@ public class ProjectService {
     }
 
     @GraphQLQuery
-    public List<Project> projects(String... tags) {
-        return repo.byTags(tags);
+    //Relay page! Not Spring Data page!
+    public Page<Project> projects(
+            @GraphQLArgument(name = "limit", defaultValue = "10") int limit,
+            @GraphQLArgument(name = "offset", defaultValue = "0") int offset,
+            String... tags) {
+        return repo.findProjects(limit, offset, tags);
+    }
+
+    @GraphQLQuery
+    //Spring Data page. Toggle graphql.spqr.relay.spring-data-compatible for Relay compliant mapping
+    public org.springframework.data.domain.Page<Project> projectsData(Pageable paging, String... tags) {
+        return repo.findProjects(paging, tags);
     }
 
     @GraphQLQuery
@@ -45,7 +60,8 @@ public class ProjectService {
     }
 
     @GraphQLQuery
-    public long currentFunding(@GraphQLContext Project project) {
-        return ThreadLocalRandom.current().nextInt(1000) * 1000;
+    public CompletableFuture<Long> currentFunding(@GraphQLContext Project project, @GraphQLEnvironment ResolutionEnvironment env) {
+        DataLoader<Project, Long> fundingLoader = env.dataFetchingEnvironment.getDataLoader("funding");
+        return fundingLoader.load(project);
     }
 }

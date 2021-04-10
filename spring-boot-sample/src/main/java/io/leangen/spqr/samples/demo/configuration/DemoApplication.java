@@ -2,11 +2,11 @@ package io.leangen.spqr.samples.demo.configuration;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.support.SpringBootServletInitializer;
+import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 @ComponentScan(basePackages = "io.leangen.spqr.samples.demo")
@@ -17,8 +17,8 @@ public class DemoApplication extends SpringBootServletInitializer {
     }
 
     @Bean
-    public WebMvcConfigurerAdapter forwardToIndex() {
-        return new WebMvcConfigurerAdapter() {
+    public WebMvcConfigurer forwardToIndex() {
+        return new WebMvcConfigurer() {
             @Override
             public void addViewControllers(ViewControllerRegistry registry) {
                 registry.addViewController("/").setViewName(
@@ -26,5 +26,4 @@ public class DemoApplication extends SpringBootServletInitializer {
             }
         };
     }
-
 }

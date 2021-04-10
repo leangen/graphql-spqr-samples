@@ -9,8 +9,8 @@ import io.leangen.graphql.samples.dto.Status;
 import io.leangen.graphql.samples.dto.Task;
 import io.leangen.graphql.samples.dto.Type;
 import io.leangen.graphql.samples.repo.TaskRepo;
-import io.leangen.graphql.spqr.spring.annotation.GraphQLApi;
-import io.leangen.graphql.spqr.spring.util.ConcurrentMultiRegistry;
+import io.leangen.graphql.spqr.spring.annotations.GraphQLApi;
+import io.leangen.graphql.spqr.spring.util.ConcurrentMultiMap;
 import org.reactivestreams.Publisher;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Flux;
@@ -23,7 +23,7 @@ import java.util.Collection;
 public class TaskService {
 
     private final TaskRepo repo;
-    private final ConcurrentMultiRegistry<String, FluxSink<Task>> subscribers = new ConcurrentMultiRegistry<>();
+    private final ConcurrentMultiMap<String, FluxSink<Task>> subscribers = new ConcurrentMultiMap<>();
 
     public TaskService(TaskRepo repo) {
         this.repo = repo;

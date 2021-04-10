@@ -34,8 +34,8 @@ public class TaskRepo {
                 .findFirst().orElse(null);
     }
 
-    public Collection<Task> byProjectCodeAndStatus(String code, Status... statuses) {
-        return projectRepo.byCode(code).getTasks().stream()
+    public Collection<Task> byProjectCodeAndStatus(String projectCode, Status... statuses) {
+        return projectRepo.byCode(projectCode).getTasks().stream()
                 .filter(task -> statuses == null || Arrays.stream(statuses).anyMatch(status -> task.getStatus() == status))
                 .collect(Collectors.toList());
     }

@@ -24,6 +24,7 @@ import java.util.Map;
 
 @RestController
 public class GraphQLSampleController {
+
     private static final Logger LOGGER = LoggerFactory.getLogger(GraphQLSampleController.class);
 
     private final GraphQL graphQL;
@@ -45,7 +46,7 @@ public class GraphQLSampleController {
         LOGGER.info("Generated GraphQL schema using SPQR");
     }
 
-    @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_UTF8_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "/graphql", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Map<String, Object> indexFromAnnotated(@RequestBody Map<String, String> request, HttpServletRequest raw) {
         ExecutionResult executionResult = graphQL.execute(ExecutionInput.newExecutionInput()
