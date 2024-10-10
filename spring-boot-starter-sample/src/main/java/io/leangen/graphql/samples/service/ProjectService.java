@@ -4,9 +4,11 @@ import io.leangen.graphql.annotations.GraphQLArgument;
 import io.leangen.graphql.annotations.GraphQLContext;
 import io.leangen.graphql.annotations.GraphQLEnvironment;
 import io.leangen.graphql.annotations.GraphQLMutation;
+import io.leangen.graphql.annotations.GraphQLNonNull;
 import io.leangen.graphql.annotations.GraphQLQuery;
 import io.leangen.graphql.execution.ResolutionEnvironment;
 import io.leangen.graphql.execution.relay.Page;
+import io.leangen.graphql.samples.dto.Filter;
 import io.leangen.graphql.samples.dto.Project;
 import io.leangen.graphql.samples.dto.Task;
 import io.leangen.graphql.samples.repo.ProjectRepo;
@@ -44,7 +46,10 @@ public class ProjectService {
     public Page<Project> projects(
             @GraphQLArgument(name = "limit", defaultValue = "10") int limit,
             @GraphQLArgument(name = "offset", defaultValue = "0") int offset,
-            String... tags) {
+            @GraphQLArgument(name = "filters", description = "Filters to apply")
+            List<@GraphQLNonNull Filter> filters,
+            String... tags
+    ) {
         return repo.findProjects(limit, offset, tags);
     }
 
